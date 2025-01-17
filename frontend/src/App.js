@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Container, Typography, Grid, Card, CardContent } from "@mui/material";
+import StockForm from "./components/StockForm";
+import StockChart from "./components/StockChart";
 
 function App() {
+  const [backtestData, setBacktestData] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="lg" style={{ marginTop: "20px" }}>
+      <Typography variant="h3" align="center" gutterBottom>
+        Stock Backtesting Showcase
+      </Typography>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Configure Backtesting
+              </Typography>
+              <StockForm onSubmit={(data) => setBacktestData(data)} />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Backtesting Results
+              </Typography>
+              <StockChart data={backtestData} />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
