@@ -20,7 +20,8 @@ const StockForm = ({ onSubmit }) => {
         { day: 5, value: 10500 },
       ],
     };
-    onSubmit(dummyData);
+
+    onSubmit(dummyData); // Pass data back to the parent (App.js)
   };
 
   return (
@@ -64,7 +65,13 @@ const StockForm = ({ onSubmit }) => {
         value={endDate}
         onChange={(e) => setEndDate(e.target.value)}
       />
-      <Button variant="contained" color="primary" onClick={handleSubmit} fullWidth>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSubmit}
+        fullWidth
+        style={{ marginTop: "10px" }}
+      >
         Run Backtest
       </Button>
     </form>
