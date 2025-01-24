@@ -1,7 +1,6 @@
 # How to run locally 
 For terminal python run uvicorn app:app --reload
 for run go backtest.go
-
 for react run npm star after npm install
 # GoTradeSim
 
