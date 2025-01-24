@@ -1,3 +1,7 @@
+# How to run locally 
+For terminal python run uvicorn app:app --reload
+for run go backtest.go
+for react run npm star after npm install
 # GoTradeSim
 
 GoTradeSim is a Go-based stock backtesting framework that allows you to test and evaluate trading strategies using historical and real-time market data. The framework integrates external trading signals, supports modular components, and provides features like data simulation and real-time data handling for robust strategy evaluation.

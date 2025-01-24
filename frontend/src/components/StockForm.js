@@ -34,6 +34,8 @@ const StockForm = ({ onSubmit }) => {
         value={symbol}
         onChange={(e) => setSymbol(e.target.value)}
       />
+      <p>Try typing TSLA or AAPL</p>
+
       <TextField
         select
         label="Strategy"
