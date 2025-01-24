@@ -14,13 +14,16 @@ from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from alpaca.data.enums import DataFeed
-
+from dotenv import load_dotenv
+import os
 # Exception handling (optional)
 from alpaca.common.exceptions import APIError
 
 # Securely input your Alpaca API credentials
-API_KEY = "PKMZIOHORZ8VAE1ED0MS"
-SECRET_KEY = "uCU6m83Xe0WsnEdNwq7hVRC8fKXJaywbo604yYxM"
+
+load_dotenv(".env")  # Explicitly load a specific .env file
+API_KEY = os.environ["API_KEY"]
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 
 # Import necessary libraries

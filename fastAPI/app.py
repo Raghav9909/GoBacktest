@@ -5,6 +5,7 @@ import yfinance as yf
 from alpaca_wrapper import get_data
 import httpx
 
+
 app = FastAPI()
 
 GOLANG_URL='http://localhost:8080/backtest'
