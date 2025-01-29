@@ -4,10 +4,45 @@ import StockForm from "./components/StockForm";
 import StockChart from "./components/StockChart";
 
 function App() {
-  const [backtestData, setBacktestData] = useState(null);
+  const [backtestData, setBacktestData] = useState({});
+  
+  // const [alpacaData, setAlpacaData] = useState(null);
 
   const handleBacktestSubmit = (data) => {
-    setBacktestData(data); // Update the backtest data when the form is submitted
+    console.log("reached here")
+    const newItem = { data };
+    // const newItem = {
+    //   "ticker": "TSLA",
+    //   "start_date": "2025-01-08",
+    //   "end_date": "2025-01-20",
+    //   "strategy": "SMA",
+    //   "timeframe": {
+    //     "num": 30,
+    //     "unit": "min"
+    //   }
+    // }
+  console.log(JSON.stringify(newItem.data))
+
+    // Send data to the backend
+    fetch('http://localhost:5000/posting_stock_info', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newItem.data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('Item created:', data);
+        setBacktestData(data); 
+
+        // Optionally reset form or navigate
+        // setName('');
+      })
+      .catch((err) => {
+        console.error('Error creating item:', err);
+      });
+    // Update the backtest data when the form is submitted
   };
 
   return (
@@ -35,7 +70,11 @@ function App() {
               <Typography variant="h5" gutterBottom>
                 Backtesting Results
               </Typography>
-              <StockChart data={backtestData} />
+              {backtestData ? (
+                <StockChart data={backtestData} />
+              ) : (
+                <Typography variant="body2">No data available yet.</Typography>
+              )}
             </CardContent>
           </Card>
         </Grid>

@@ -1,48 +1,41 @@
 import React from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
 import { Line } from "react-chartjs-2";
-
-// Register the required chart types
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+import { Card, CardContent, Typography } from "@mui/material";
 
 const StockChart = ({ data }) => {
-  if (!data) {
-    return <p>No data available. Submit the form to see results.</p>;
+  // Ensure data is valid and contains results
+  if (!data || !data.results || !Array.isArray(data.results)) {
+    return (
+      <Card>
+        <CardContent>
+          <Typography variant="body2">No data available for backtesting.</Typography>
+        </CardContent>
+      </Card>
+    );
   }
 
+  // Extracting data for the chart
   const chartData = {
     labels: data.results.map((entry) => `Day ${entry.day}`),
     datasets: [
       {
-        label: `Portfolio Value (${data.symbol})`,
+        label: "Portfolio Value",
         data: data.results.map((entry) => entry.value),
-        borderColor: "rgba(75,192,192,1)",
-        backgroundColor: "rgba(75,192,192,0.2)",
-        fill: true,
+        borderColor: "cyan",
+        backgroundColor: "rgba(0,255,255,0.2)",
+        tension: 0.3,
       },
     ],
   };
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: { position: "top" },
-    },
-    scales: {
-      y: { beginAtZero: false },
-    },
-  };
-
-  return <Line data={chartData} options={options} />;
+  return (
+    <Card>
+      <CardContent>
+        <Typography variant="h5">Backtesting Results</Typography>
+        <Line data={chartData} />
+      </CardContent>
+    </Card>
+  );
 };
 
 export default StockChart;
