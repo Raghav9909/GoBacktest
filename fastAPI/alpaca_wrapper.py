@@ -25,6 +25,7 @@ load_dotenv(".env")  # Explicitly load a specific .env file
 API_KEY = os.environ["API_KEY"]
 SECRET_KEY = os.environ["SECRET_KEY"]
 
+EXPORT_DIR=""
 
 # Import necessary libraries
 
@@ -33,8 +34,8 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 def get_data(ticker,start_date,end_date,time_frame):
     client = StockHistoricalDataClient(API_KEY, SECRET_KEY)
 
-    num=time_frame["number"]
-    unit=time_frame["unit"]
+    num=time_frame.num
+    unit=time_frame.unit
 
     if(unit=="min"):
         unit=TimeFrameUnit.Minute
@@ -81,6 +82,18 @@ def get_data(ticker,start_date,end_date,time_frame):
 
 # get_tsla_data()
 
+def convert_data_to_list(bars,ticker):
+    headers = bars.data[ticker][0]
+    headers = list(vars(headers).keys())
+    values_list = [list(vars(obj).values()) for obj in bars.data[ticker]]
+    print(values_list)
+    df = pd.DataFrame(values_list,columns=headers)
+
+    # Define local CSV file path
+    csv_file = os.path.join(EXPORT_DIR, f"{ticker}_backtest.csv")
+
+    # Save the CSV locally
+    df.to_csv(csv_file, index=False,header=True)
 if __name__ == "__main__":
     end_date = datetime.now(pytz.utc)
     start_date = end_date - timedelta(days=180 * 10) 
