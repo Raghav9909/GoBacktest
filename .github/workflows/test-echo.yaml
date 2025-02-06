@@ -1,0 +1,15 @@
+name: Echo Running Tests
+
+on:
+  push:
+    branches:
+      - main  # or your specific branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # or another suitable runner
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Echo Running Tests
+      run: echo "Running tests"
