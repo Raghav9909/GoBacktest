@@ -26,6 +26,8 @@ func CalculateRSI(prices []float64, period int) ([]float64, error) {
 		}
 	}
 
+
+	
 	avgGain := gainSum / float64(period)
 	avgLoss := lossSum / float64(period)
 
